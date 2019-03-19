@@ -21,6 +21,7 @@ var config = {
     },
     output: {
         path: __dirname + '/dist',
+        publicPath: '/dist/', // 这个路径是打包后的引入文件的前缀，需要加上才会触发webpack-dev-server刷新机制以及让引入的路径正确
         filename: 'js/[name].js'
     },
     externals:{
@@ -28,15 +29,34 @@ var config = {
     },
     module: {
         // loaders: [
-        //     {test: /\.css$/, loader:ExtractTextPlugin.extract('style-loader', 'css-loader')}
-        // ]
-        rules: [{ // webpack 3.x写法
-            test: /\.css$/,
-            use: ExtractTextPlugin.extract({
-                fallback: "style-loader",
-                use: "css-loader"
-            })
-        }]
+        //     {test: /\.(gif|png|jpg)\??.*$/, loader: 'url-loader?limit=100&name=resource/[name].[ext]'}
+        // ],
+        rules: [
+            { // webpack 3.x写法
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            },
+            {// 处理写在css中的图片
+                test: /\.(png|jpg|gif|svg)$/i,
+                use: [
+                  {
+                    // 将图片处理成base64时候使用
+                    loader: 'url-loader',
+                    // loader: 'file-loader',
+                    options: {
+                      // 小于2k的图片处理成64编码，大于就交给file-loader处理
+                      limit: 200,
+                      // publicPath: '../', // 此处加上publicPath，否则打包后的css引入图片的路径会有问题
+                      // 图片打包后存在assets文件下[名称]-[5位哈希值].[自身文件类型]
+                      name: 'assets/[name]-[hash:5].[ext]'
+                    }
+                  }
+                ]
+              }
+        ]
     },
     plugins: [
         // 独立通用模块到js/base.js
