@@ -21,6 +21,9 @@
     "webpack": "^3.12.0",
     "webpack-dev-server": "^2.11.3"
   },
+  "dependencies": {
+    "hogan": "^1.0.2"
+  },
   "author": "zts",
   "license": "ISC"
 }

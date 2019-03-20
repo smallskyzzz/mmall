@@ -67,6 +67,17 @@ var config = {
         new ExtractTextPlugin('css/[name].css'), // css的打包
         new HtmlWebpackPlugin(getHtmlConfig('index')),
         new HtmlWebpackPlugin(getHtmlConfig('login'))
-    ]
+    ],
+    devServer: { // 跨域的配置
+        proxy: {
+            '/api': {
+                target: 'http://happymmall.com/',
+                pathRewrite: {
+                    '^/api': '/'
+                },
+                secure: true
+            }
+        }
+    }
 }
 module.exports = config
