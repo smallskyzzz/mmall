@@ -17,7 +17,8 @@ var config = {
     entry: {
         'common': ['./src/page/common/index.js'], // 这个是通用的js模块，即打包后自动加入进了base.js,无需再手动引入一遍
         'index': ['./src/page/index/index.js'],
-        'login': ['./src/page/login/index.js']
+        'login': ['./src/page/login/index.js'],
+        'result': ['./src/page/result/index.js']
     },
     output: {
         path: __dirname + '/dist',
@@ -39,8 +40,12 @@ var config = {
                     use: "css-loader"
                 })
             },
+            {
+                test: /\.string$/,
+                use: 'html-loader'
+            },
             {// 处理写在css中的图片
-                test: /\.(png|jpg|gif|svg)$/i,
+                test: /\.(gif|png|jpg|woff|woff2|svg|eot|ttf)$/i,
                 use: [
                   {
                     // 将图片处理成base64时候使用
@@ -66,7 +71,8 @@ var config = {
         }),
         new ExtractTextPlugin('css/[name].css'), // css的打包
         new HtmlWebpackPlugin(getHtmlConfig('index')),
-        new HtmlWebpackPlugin(getHtmlConfig('login'))
+        new HtmlWebpackPlugin(getHtmlConfig('login')),
+       new HtmlWebpackPlugin(getHtmlConfig('result'))
     ],
     devServer: { // 跨域的配置
         proxy: {
