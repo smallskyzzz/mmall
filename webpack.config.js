@@ -76,12 +76,13 @@ var config = {
     ],
     devServer: { // 跨域的配置
         proxy: {
-            '/api': {
+            '/api/*': {
                 target: 'http://happymmall.com/',
                 pathRewrite: {
                     '^/api': '/'
                 },
-                secure: true
+                secure: true,
+                changeOrigin: true
             }
         }
     }
