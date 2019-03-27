@@ -23,7 +23,7 @@ var _user = {
     // 检查用户名
     checkUsername : function(username, resolve, reject){
         _mm.request({
-            url     : _mm.getServerUrl('/user/check_valid.do'),
+            url     : _mm.getServerUrl('/api/user/check_valid.do'),
             data    : {
                 type    : 'username',
                 str     : username
@@ -36,7 +36,7 @@ var _user = {
     // 用户注册
     register : function(userInfo, resolve, reject){
         _mm.request({
-            url     : _mm.getServerUrl('/user/register.do'),
+            url     : _mm.getServerUrl('/api/user/register.do'),
             data    : userInfo,
             method  : 'POST',
             success : resolve,
