@@ -4,6 +4,7 @@ require('../common/nav/index.js')
 require('../common/header/index.js')
 var _mm = require('../../util/util.js')
 var _product = require('../../service/product-service.js')
+var Pagination = require('../../util/pagination/index.js')
 var templateIndex = require('./index.string')
 
 var page = {
@@ -24,25 +25,74 @@ var page = {
         this.loadList()
     },
     bindEvent: function () {
+        var _this = this
+        // 排序的点击事件
+        $('.sort-item').click(function () {
+            var $this = $(this)
+            _this.data.listParam.pageNum = 1
+            // 点击默认排序
+            if($this.data('type') === 'default'){
+                // 已经是active样式
+                if($this.hasClass('active')){
+                    return
+                }else{
+                    $this.addClass('active').siblings('.sort-item') // 遍历$this的同胞元素
+                        .removeClass('active asc desc')
+                    _this.data.listParam.orderBy = 'default'
+                }
+            }
+            // 点击价格排序
+            else if($this.data('type') === 'price'){
+                // active的处理
+                $this.addClass('active').siblings('.sort-item')
+                    .removeClass('active asc desc')
+                // 升序降序的处理
+                if(!$this.hasClass('asc')){
+                    $this.addClass('asc').removeClass('desc')
+                    _this.data.listParam.orderBy = 'price_asc'
+                }else{
+                    $this.addClass('desc').removeClass('asc')
+                    _this.data.listParam.orderBy = 'price_desc'
+                }
+            }
 
+            // 重新加载列表
+            _this.loadList()
+        })
     },
     loadList: function () {
         var listHtml = '',
             _this = this,
-            listParam = this.data.listParam
+            listParam = this.data.listParam,
+            $pListCon = $('.p-list-con')
+        // 切换排序方式时的加载提示
+        $pListCon.html('<div class="loading"></div>')
+        // 删除参数中不必要的字段
+        listParam.categoryId
+            ? (delete listParam.keyword) : (delete listParam.categoryId);
         _product.getProductList(listParam, function (res) {
             listHtml = _mm.renderHtml(templateIndex, {
                 list: res.list
             })
             $('.p-list-con').html(listHtml)
-            _this.loadPagination(res.pageNum, res.pages)
+            _this.loadPagination({
+                hasPreviousPage : res.hasPreviousPage,
+                prePage         : res.prePage,
+                hasNextPage     : res.hasNextPage,
+                nextPage        : res.nextPage,
+                pageNum         : res.pageNum,
+                pages           : res.pages
+            })
         },function (errMsg) {
             _mm.errorTips(errMsg)
         })
     },
     // 加载分页信息
-    loadPagination: function (pageNum, pages) {
-
+    loadPagination: function (pageInfo) {
+        this.pagination ? '' : (this.pagination = new Pagination())
+        this.pagination.render($.extend({}, pageInfo, {
+            container: $('.pagination')
+        }))
     }
 }
 
