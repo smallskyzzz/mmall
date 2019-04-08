@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%= require('html-loader!./layout/head-html.html')  %>
+        <title><%= htmlWebpackPlugin.options.title%> - happymmall电商平台</title>
+    </head>
+    <body>
+        <%= require('html-loader!./layout/header.html')  %>
+
+        <div class="page-wrap w">
+            <div class="intro-wrap">
+                <div class="p-img-con">
+                    <div class="main-img-con">
+                        <img class="main-img" src="http://img.happymmall.com/5a4de435-3b80-4eb6-8a1f-1ddddb35636a.jpg" />
+                    </div>
+                    <ul class="p-img-list">
+                        <li class="p-img-item">
+                            <img class="p-img" src="http://img.happymmall.com/5a4de435-3b80-4eb6-8a1f-1ddddb35636a.jpg" />
+                        </li>
+                        <li class="p-img-item">
+                            <img class="p-img" src="http://img.happymmall.com/5a4de435-3b80-4eb6-8a1f-1ddddb35636a.jpg" />
+                        </li>
+                        <li class="p-img-item">
+                            <img class="p-img" src="http://img.happymmall.com/5a4de435-3b80-4eb6-8a1f-1ddddb35636a.jpg" />
+                        </li>
+                        <li class="p-img-item">
+                            <img class="p-img" src="http://img.happymmall.com/5a4de435-3b80-4eb6-8a1f-1ddddb35636a.jpg" />
+                        </li>
+                        <li class="p-img-item">
+                            <img class="p-img" src="http://img.happymmall.com/5a4de435-3b80-4eb6-8a1f-1ddddb35636a.jpg" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-info-con">
+                    <h1 class="p-name">手机</h1>
+                    <p class="p-subtitle">xsxsxws</p>
+                    <div class="p-info-item p-price-con">
+                        <span class="label">价格：</span>
+                        <span class="info">$111</span>
+                    </div>
+                    <div class="p-info-item">
+                        <span class="label">库存：</span>
+                        <input type="text" class="p-count" value="1" readonly />
+                    </div>
+                    <div class="p-info-item p-count-con">
+                        <span class="label">数量：</span>
+                        <span class="info">$111</span>
+                        <span class="p-count-btn plus">+</span>
+                        <span class="p-count-btn minus">-</span>
+                    </div>
+                    <div class="p-info-item">
+                        <a href="" class="btn cart-add">加入购物车</a>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-wrap"></div>
+        </div>
+
+        <%= require('html-loader!./layout/footer.html') %>
+    </body>
+</html>

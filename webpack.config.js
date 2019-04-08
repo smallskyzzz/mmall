@@ -18,6 +18,7 @@ var config = {
         'common': ['./src/page/common/index.js'], // 这个是通用的js模块，即打包后自动加入进了base.js,无需再手动引入一遍
         'index': ['./src/page/index/index.js'],
         'list': ['./src/page/list/index.js'],
+        'detail': ['./src/page/detail/index.js'],
         'login': ['./src/page/login/index.js'],
         'register': ['./src/page/register/index.js'],
         'result': ['./src/page/result/index.js']
@@ -74,6 +75,7 @@ var config = {
         new ExtractTextPlugin('css/[name].css'), // css的打包
         new HtmlWebpackPlugin(getHtmlConfig('index')),
         new HtmlWebpackPlugin(getHtmlConfig('list')),
+        new HtmlWebpackPlugin(getHtmlConfig('detail')),
         new HtmlWebpackPlugin(getHtmlConfig('login')),
         new HtmlWebpackPlugin(getHtmlConfig('register')),
         new HtmlWebpackPlugin(getHtmlConfig('result'))
